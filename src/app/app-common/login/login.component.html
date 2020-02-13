@@ -1,7 +1,6 @@
 <div class="login-container">
   <div class="sectionHolder">
     <div class="login-section">
-      <!-- login fom starts -->
       <div>
         <form class="login-form" [formGroup]="loginForm" (submit)="onLogin()" autocomplete="off">
           <div class="form-group">
@@ -11,11 +10,6 @@
           <div class="form-group">
             <input class="form-control" type="password" formControlName="password" placeholder="password" maxlength="60"
               required />
-            <!-- <mat-error
-            *ngIf="loginForm.controls.userid.errors &&(loginForm.controls.userid.touched || loginForm.controls.userid.dirty)">
-            <mat-hint [hidden]="!loginForm.get('userid').hasError('required')">Email ID is required</mat-hint>
-            <mat-hint [hidden]="!loginForm.get('userid').hasError('pattern')">Invalid Email ID</mat-hint>
-          </mat-error> -->
           </div>
           <div class="form-actions text-center">
             <button type="submit" class="login-submit" name="login">Login</button>

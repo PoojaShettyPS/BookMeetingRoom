@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="heading">
+    <p>List Meetings</p>
+    <button mat-raised-button color="primary" (click)="bookMeeting()">Book Meeting</button>
+  </div>
+  <div class="card-list" *ngIf="!roomClicked">
+    <mat-card class="meeting-room-card" *ngFor="let room of roomsList">
+      <mat-card-header>
+        <mat-card-title>{{room.roomName}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{room.roomDescription}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="viewBookings(room.roomName);roomClicked = true">View
+          Bookings</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div *ngIf="roomClicked" class="list-meetings">
+    <button mat-raised-button color="accent" (click)="roomClicked = false">Go Back</button>
+    <div class="table">
+      <table class="table table-bordered">
+        <thead>
+          <th>User Name</th>
+          <th>Meeting Room</th>
+          <th>Date</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Agenda</th>
+        </thead>
+        <tbody *ngIf="meetingsList.length > 0; else noMeetings">
+          <tr *ngFor="let meeting of meetingsList">
+            <td>{{meeting.userName}}</td>
+            <td>{{meeting.meetingRoom}}</td>
+            <td>{{meeting.meetingDate | date}}</td>
+            <td>{{meeting.fromTime}}</td>
+            <td>{{meeting.toTime}}</td>
+            <td>{{meeting.meetingAgenda}}</td>
+          </tr>
+        </tbody>
+        <ng-template #noMeetings>
+          <tbody>
+            <tr>
+              <td class="text-center" colspan="6">No Meetings Found</td>
+            </tr>
+          </tbody>
+        </ng-template>
+      </table>
+    </div>
+  </div>
+</div>

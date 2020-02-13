@@ -1,0 +1,7 @@
+<h4>Meeting Room</h4>
+
+<ul class="menuList">
+  <li *ngFor="let menu of menuList">
+    <a routerLink="{{menu.menuLink}}" routerLinkActive="router-link-active">{{menu.menuName}}</a>
+  </li>
+</ul>

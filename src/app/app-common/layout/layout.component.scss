@@ -1,0 +1,14 @@
+@import '../../../assets/styles/global.scss';
+.section-one {
+    width: 18%;
+    float: left;
+    height: 100vh;
+    background: $primary-clr-dark;
+}
+
+.section-two {
+    width: 82%;
+    float: left;
+    height: 100vh;
+    background: $primary-clr-alpha;
+}    

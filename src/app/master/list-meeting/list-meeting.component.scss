@@ -1,0 +1,23 @@
+.card-list {
+  padding: 10px;
+  margin: 10px;
+
+  mat-card {
+    width: 20%;
+    float: left;
+    margin: 10px;
+  }
+}
+
+.heading p {
+  display: inline-block;
+}
+
+button {
+  float: right;
+}
+
+.list-meetings button {
+  float: left;
+  margin: 15px 0px;
+}

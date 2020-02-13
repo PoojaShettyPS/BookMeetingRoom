@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="heading">
+    <p>Book a Meeting</p>
+  </div>
+  <div>
+    <form class="meeting-form" [formGroup]="meetingForm" (submit)="onSubmit()" autocomplete="off">
+      <mat-form-field class="full-width">
+        <input matInput formControlName="userName" placeholder="User Name" maxlength="60" required />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput name="meetingDate" formControlName="meetingDate" matInput [matDatepicker]="datePicker"
+          placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput [min]="'09:00 am'" [max]="'06:00 pm'" [ngxTimepicker]="fromTimepicker"  placeholder="From" formControlName="fromTime">
+        <ngx-material-timepicker #fromTimepicker></ngx-material-timepicker>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput [min]="'09:00 am'" [max]="'06:00 pm'" [ngxTimepicker]="toTimepicker" placeholder="To" formControlName="toTime">
+        <ngx-material-timepicker #toTimepicker></ngx-material-timepicker>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-select (click)="onOpen()" formControlName="meetingRoom" placeholder="Select Meeting Name" value="">
+          <mat-option *ngFor="let room of roomsList" value="{{room.roomName}}">{{room.roomName}}</mat-option> 
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <textarea matInput formControlName="meetingAgenda" placeholder="Meeting Agenda">
+        </textarea>
+      </mat-form-field>
+      <div class="form-actions text-center">
+        <button mat-raised-button color="warn" class="cancel" type="button">Cancel Meeting</button>
+        <button mat-raised-button color="primary" type="submit">Book Meeting</button>
+      </div>
+    </form>
+  </div>
+</div>

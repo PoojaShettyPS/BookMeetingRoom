@@ -5,8 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import * as moment from 'moment';
 import { Apollo } from 'apollo-angular';
-import { CREATE_MEETING_MUTATION, CreateMeetingMutationResponse } from '../../shared/graphql';
-import gql from 'graphql-tag';
+import { CREATE_MEETING_MUTATION } from '../../shared/graphql';
+
 @Component({
   selector: 'app-create-meeting',
   templateUrl: './create-meeting.component.html',
@@ -40,55 +40,44 @@ export class CreateMeetingComponent implements OnInit {
 
   onOpen() {
     console.log('on open');
-    const meetingsList = this.sharedService.getMeetingList();
   }
 
   onSubmit() {
+    const meetingDate = moment(this.meetingForm.value.meetingDate).format('YYYY-MM-DD');
+    const fromMomentObj = moment(meetingDate + this.meetingForm.value.fromTime, 'YYYY-MM-DDLT');
+    const fromDateTimeString = fromMomentObj.format();
+
+    const toMomentObj = moment(meetingDate + this.meetingForm.value.toTime, 'YYYY-MM-DDLT');
+    const toDateTimeString = toMomentObj.format();
+
     let meetingList = JSON.parse(sessionStorage.getItem('meetingList'));
+    console.log(moment(this.meetingForm.value.meetingDate + ' ' + this.meetingForm.value.fromTime));
     if (meetingList && meetingList.length > 0) {
       meetingList.push(this.meetingForm.value);
-      console.log(this.meetingForm.value.meetingDate);
-      var dateObj = new Date(this.meetingForm.value.meetingDate);
-      var b = dateObj.toISOString();
-     var date = new Date(b);
-var finaldate = date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();
-var dtfrom = moment(this.meetingForm.value.fromTime, ["h:mm A"]).format("HH:mm:ss");
-var dtto = moment(this.meetingForm.value.toTime, ["h:mm A"]).format("HH:mm:ss");
-var example1 = moment(finaldate + " " + dtfrom ).format("YYYY-MM-DD[T]HH:mm:ss");
-var example2 = moment(finaldate + " " + dtto ).format("YYYY-MM-DD[T]HH:mm:ss");
-example1 = example1 + ".000Z";
-example2 = example2 + ".000Z";
-console.log(this.meetingForm.value.meetingDate);
-console.log(finaldate);
-console.log(example1, example2);
-
-this.apollo.mutate({
-  mutation: CREATE_MEETING_MUTATION,
-  variables: {    
-    userName: this.meetingForm.value.userName,
-    meetingRoom: this.meetingForm.value.meetingRoom,
-    meetingDate: this.meetingForm.value.meetingDate,
-    fromTime: example1,
-    toTime: example2,
-    meetingAgenda: this.meetingForm.value.meetingAgenda,
-  }
-}).subscribe((response) => {
-    console.log("response", response);
-    
-},(error)=>{
-  console.log("error",error);
-  
-});
-
-
+      this.apollo.mutate({
+        mutation: CREATE_MEETING_MUTATION,
+        variables: {
+          userName: this.meetingForm.value.userName,
+          meetingRoom: this.meetingForm.value.meetingRoom,
+          meetingDate: this.meetingForm.value.meetingDate,
+          fromTime: this.meetingForm.value.fromTime,
+          toTime: this.meetingForm.value.toTime,
+          fromDateTime: fromDateTimeString,
+          toDateTime: toDateTimeString,
+          meetingAgenda: this.meetingForm.value.meetingAgenda,
+        }
+      }).subscribe((response) => {
+        console.log('response', response);
+      }, (error) => {
+        console.log('error', error);
+      });
     } else {
       meetingList = [];
       meetingList.push(this.meetingForm.value);
     }
     sessionStorage.setItem('meetingList', JSON.stringify(meetingList));
-    this.snackBar.open('Meeting Booked Successfully',  'okay', { duration: 3000, verticalPosition: 'top', horizontalPosition: 'center' });
+    this.snackBar.open('Meeting Booked Successfully', 'okay', { duration: 3000, verticalPosition: 'top', horizontalPosition: 'center' });
     this.router.navigateByUrl('/master/list-meetings');
   }
-
 
 }

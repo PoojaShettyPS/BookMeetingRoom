@@ -11,6 +11,7 @@ export class ListMeetingComponent implements OnInit {
 
   public roomsList = [];
   public meetingsList = [];
+  public roomClicked = false;
 
   constructor(
     public router: Router,
@@ -24,7 +25,12 @@ export class ListMeetingComponent implements OnInit {
   viewBookings(roomName) {
     const meetingsList = this.sharedService.getMeetingList();
     this.meetingsList = meetingsList.filter(x => x.meetingRoom === roomName);
+    this.roomClicked = true;
     console.log(this.meetingsList);
+  }
+
+  goBack() {
+    this.roomClicked = false;
   }
 
   bookMeeting() {

@@ -12,13 +12,13 @@
         <p>{{room.roomDescription}}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="viewBookings(room.roomName);roomClicked = true">View
+        <button mat-raised-button color="primary" (click)="viewBookings(room.roomName)">View
           Bookings</button>
       </mat-card-actions>
     </mat-card>
   </div>
   <div *ngIf="roomClicked" class="list-meetings">
-    <button mat-raised-button color="accent" (click)="roomClicked = false">Go Back</button>
+    <button mat-raised-button color="accent" (click)="goBack()">Go Back</button>
     <div class="table">
       <table class="table table-bordered">
         <thead>

@@ -17,6 +17,7 @@ export class ListMeetingComponent implements OnInit {
   public roomsList = [];
   public meetingsList = [];
   public meetings: Observable<MeetingList[]>;
+  public roomClicked = false;
 
   constructor(
     public router: Router,
@@ -45,6 +46,10 @@ export class ListMeetingComponent implements OnInit {
       console.log(res);
     });
     console.log('Meetings--->', this.meetingsList);
+  }
+
+  goBack() {
+    this.roomClicked = false;
   }
 
   bookMeeting() {

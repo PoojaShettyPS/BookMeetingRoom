@@ -33,31 +33,22 @@ export class CreateMeetingComponent implements OnInit {
       meetingAgenda: ['', [Validators.required]]
     });
   }
+
   get toTime(): any { return this.meetingForm.get('toTime'); }
+
   ngOnInit() {
     this.roomsList = this.sharedService.getRoomsList();
-
     this.meetingForm.controls.toTime.valueChanges.subscribe((res) => {
-      console.log("sadasd");
-      if(this.meetingForm.value.toTime !== '') {
-        this.meetingForm.value.toTime = '';
+      if (this.meetingForm.value.meetingDate === '') {
+        this.snackBar.open('Please select meeting date', 'okay', { duration: 3000, verticalPosition: 'top', horizontalPosition: 'center' });
+        this.meetingForm.get( 'toTime' ).patchValue('', {emitEvent: false} );
+      } else if (this.meetingForm.value.fromTime === '') {
+        this.snackBar.open('Please select from time', 'okay', { duration: 3000, verticalPosition: 'top', horizontalPosition: 'center' });
+        this.meetingForm.get( 'toTime' ).patchValue('', {emitEvent: false} );
+      } else {
       }
     });
   }
-
-  onOpen() {
-    console.log('on open');
-  }
-
-  /* onModelChanged(val) {
-    console.log("val here", val);
-    if (this.meetingForm.value.fromTime || this.meetingForm.value.meetingDate === "") {
-      this.meetingForm.controls.toTime.setValue("");
-      this.snackBar.open('Please select time', 'okay', { duration: 3000, verticalPosition: 'top', horizontalPosition: 'center' }); 
-    } else {
-      console.log("selected");
-    }
-  } */
 
   onSubmit() {
     const meetingDate = moment(this.meetingForm.value.meetingDate).format('YYYY-MM-DD');

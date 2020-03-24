@@ -4,8 +4,9 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { MeetingList, Query } from '../../shared/models/meetingList';
+import { lexicographicSortSchema } from 'graphql';
 
 @Component({
   selector: 'app-list-meeting',
@@ -18,6 +19,7 @@ export class ListMeetingComponent implements OnInit {
   public meetingsList = [];
   public meetings: Observable<MeetingList[]>;
   public roomClicked = false;
+  roomName: string = '';
 
   constructor(
     public router: Router,
@@ -27,25 +29,40 @@ export class ListMeetingComponent implements OnInit {
 
   ngOnInit() {
     this.roomsList = this.sharedService.getRoomsList();
-    this.viewBookings();
+    // this.viewBookings();
   }
 
-  viewBookings() {
-   this.apollo.watchQuery<Query>({
-      query: gql`query
+  viewBookings(roomName) {
+    console.log(roomName);
+    this.roomName = roomName;
+    this.roomClicked = true;
+    this.apollo.watchQuery<Query>({
+      query: gql`query($roomName: String!)
       {
-        meetings {
+        meetings(
+          filter: {
+            roomName: $roomName
+          } 
+         ) {
           _id 
           userName
+          meetingRoom
+          meetingDate
+          meetingAgenda
           fromTime
           toTime
+          fromDateTime
+          toDateTime
         }
-      }`
-    }).valueChanges.pipe(map(result => result.data.meetings)).subscribe((res) =>{
+      }`,
+      variables: {
+        roomName: roomName
+      }
+    }).valueChanges.pipe(map(result => result.data.meetings)).subscribe((res) => {
       this.meetingsList = res;
-      console.log(res);
+      console.log(this.meetingsList);
+      
     });
-    console.log('Meetings--->', this.meetingsList);
   }
 
   goBack() {

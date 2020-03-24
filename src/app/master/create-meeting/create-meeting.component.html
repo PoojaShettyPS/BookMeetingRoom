@@ -5,7 +5,7 @@
   <div>
     <form class="meeting-form" [formGroup]="meetingForm" (submit)="onSubmit()" autocomplete="off">
       <mat-form-field class="full-width">
-        <input matInput formControlName="userName" placeholder="User Name" maxlength="60" required />
+        <input matInput formControlName="userName"  placeholder="User Name" maxlength="60" required />
       </mat-form-field>
       <mat-form-field class="full-width">
         <input matInput name="meetingDate" formControlName="meetingDate" matInput [matDatepicker]="datePicker"
@@ -16,7 +16,7 @@
       <mat-form-field class="full-width">
         <input matInput [min]="'09:00 am'" [max]="'06:00 pm'" [ngxTimepicker]="fromTimepicker"  placeholder="From" formControlName="fromTime">
         <ngx-material-timepicker #fromTimepicker></ngx-material-timepicker>
-      </mat-form-field>
+      </mat-form-field> 
       <mat-form-field class="full-width">
         <input matInput [min]="'09:00 am'" [max]="'06:00 pm'" [ngxTimepicker]="toTimepicker" placeholder="To" formControlName="toTime">
         <ngx-material-timepicker #toTimepicker></ngx-material-timepicker>

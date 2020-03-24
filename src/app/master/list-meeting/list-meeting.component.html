@@ -33,7 +33,7 @@
           <tr *ngFor="let meeting of meetingsList">
             <td>{{meeting.userName}}</td>
             <td>{{meeting.meetingRoom}}</td>
-            <td>{{meeting.meetingDate | date}}</td>
+            <td>{{meeting.meetingDate | date:'dd/MM/yyyy'}}</td>
             <td>{{meeting.fromTime}}</td>
             <td>{{meeting.toTime}}</td>
             <td>{{meeting.meetingAgenda}}</td>

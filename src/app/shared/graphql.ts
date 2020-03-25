@@ -4,7 +4,26 @@ export const CREATE_MEETING_MUTATION = gql`
     createMeeting(userName : $userName, meetingRoom : $meetingRoom, meetingDate : $meetingDate, fromTime : $fromTime, toTime :$toTime,fromDateTime : $fromDateTime, toDateTime :$toDateTime, meetingAgenda : $meetingAgenda) 
   }
 `;
-
+ 
+export var QUERY_GET_MEETING = gql`
+query($fromDateTime: String!, $toDateTime : String)
+{
+  getmeetingsbytime(
+   
+    fromDateTime: $fromDateTime, toDateTime: $toDateTime 
+    
+   ) {
+    _id 
+    userName
+    meetingRoom
+    meetingDate
+    meetingAgenda
+    fromTime
+    toTime
+    fromDateTime
+    toDateTime
+  }
+}`;
 //3
 export interface CreateMeetingMutationResponse {
  // createMeeting: Link;

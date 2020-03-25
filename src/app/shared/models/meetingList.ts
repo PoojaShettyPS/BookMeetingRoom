@@ -6,11 +6,12 @@ export type MeetingList = {
     meetingRoom: string;
     fromTime: string;
     toTime: string;
-    fromDateTime: Date;
-    toDateTime: Date;
+    fromDateTime: string;
+    toDateTime: string;
 
 }
 
 export type Query = {
-    meetings: MeetingList[];
+    meetings: MeetingList[]; 
+    getmeetingsbytime: MeetingList[]; 
 }

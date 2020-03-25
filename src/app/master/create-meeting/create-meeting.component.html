@@ -8,7 +8,7 @@
         <input matInput formControlName="userName"  placeholder="User Name" maxlength="60" required />
       </mat-form-field>
       <mat-form-field class="full-width">
-        <input matInput name="meetingDate" formControlName="meetingDate" matInput [matDatepicker]="datePicker"
+        <input matInput name="meetingDate" [min]="today" formControlName="meetingDate" matInput [matDatepicker]="datePicker"
           placeholder="Choose a date">
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
@@ -22,14 +22,15 @@
         <ngx-material-timepicker #toTimepicker></ngx-material-timepicker>
       </mat-form-field>
       <mat-form-field class="full-width">
-        <mat-select (click)="onOpen()" formControlName="meetingRoom" placeholder="Select Meeting Name" value="">
-          <mat-option *ngFor="let room of roomsList" value="{{room.roomName}}">{{room.roomName}}</mat-option> 
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="full-width">
         <textarea matInput formControlName="meetingAgenda" placeholder="Meeting Agenda">
         </textarea>
       </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-select (click)="onOpen()" formControlName="meetingRoom" placeholder="Select Meeting Name" value="">
+          <mat-option *ngFor="let room of roomsList" value="{{room.roomName}}">{{room.roomName}} <b [ngClass]="room.status == 'booked' ? 'booked' : room.status ==='available' ? 'available' : 'inuse' ">{{  room.status}}</b></mat-option> 
+        </mat-select>
+      </mat-form-field>
+    
       <div class="form-actions text-center">
         <button mat-raised-button color="warn" class="cancel" type="button">Cancel Meeting</button>
         <button mat-raised-button color="primary" type="submit">Book Meeting</button>

@@ -9,12 +9,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../shared/modules/material.module';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
     CreateMeetingComponent,
-    ListMeetingComponent,
-    MeetingLayoutComponent
+    ListMeetingComponent, 
+    MeetingLayoutComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,7 @@ import { MaterialModule } from '../shared/modules/material.module';
     NgxMaterialTimepickerModule,
     SharedModule,
     MaterialModule
-  ]
+  ],
+  entryComponents: [ ConfirmDialogComponent ]
 })
 export class MasterModule { }

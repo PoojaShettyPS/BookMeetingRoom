@@ -10,6 +10,7 @@ import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink  } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmDialogComponent } from './master/confirm-dialog/confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({

@@ -18,5 +18,10 @@ export class ConfirmDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onConfirm(){
+    console.log("confirm");
+    
+  }
+
 
 }

@@ -38,7 +38,7 @@
             <td>{{meeting.fromTime}}</td>
             <td>{{meeting.toTime}}</td>
             <td>{{meeting.meetingAgenda}}</td>
-            <td><span class="material-icons">
+            <td (click)="openDialog(meeting._id)"><span  class="material-icons">
               delete
               </span></td>
           </tr>
